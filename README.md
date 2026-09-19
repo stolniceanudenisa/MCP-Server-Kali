@@ -3,6 +3,14 @@
 
 MCP Server that exposes Kali Linux pentesting tools to AI assistants (VS Code + GitHub Copilot) over stdio/SSH.
 
+## General Flow
+```
+User → AI Agent (VS Code Copilot) → MCP Server → Kali Tools
+     ← AI Response ← MCP Result ←
+```
+
+The AI agent sends requests to the MCP server, which executes the appropriate tools on Kali Linux. The results are returned through MCP to the AI agent, which interprets them and generates the final response.
+
 ## MCP Tools
 
 | Category | Tools |
@@ -146,11 +154,3 @@ VS Code + GitHub Copilot
           ├── ffuf_scan
           └── etc.
 ```
-
-## General Flow
-```
-User → AI Agent (VS Code Copilot) → MCP Server → Kali Tools
-     ← AI Response ← MCP Result ←
-```
-
-The AI agent sends requests to the MCP server, which executes the appropriate tools on Kali Linux. The results are returned through MCP to the AI agent, which interprets them and generates the final response.
