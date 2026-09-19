@@ -157,7 +157,7 @@ VS Code + GitHub Copilot
 
 
 
-# Example: OWASP Juice Shop — SQL Injection Validation
+## Example: OWASP Juice Shop — SQL Injection Validation
 
 This example uses a local OWASP Juice Shop instance to demonstrate the complete MCP → Kali → tool output → AI response workflow.
 
