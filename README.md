@@ -22,7 +22,7 @@ MCP Server that exposes Kali Linux pentesting tools to AI assistants (VS Code + 
 On your Kali machine:
 
 ```bash
-cd kali-mcp-server  
+cd mcp-server-kali  
 chmod +x setup.sh
 ./setup.sh
 ```
